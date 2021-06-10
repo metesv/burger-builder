@@ -5,15 +5,16 @@ import "./Menu.css";
 const Menu = () => {
   const {
     /* Context'te bulunan ihtiyacımız olan state */
+    selectedIngredients,
     setSelectedIngredients,
     getCalculatedTotalPrice,
   } = useContext(HamburgerContext);
 
-  const handleAddIngredient = (ingredient) => {
+  const handleAddIngredient = ingredient => {
     const ingredients = [...selectedIngredients];
 
     const existIngredient = ingredients.find(
-      (item) => item.name === ingredient.name
+      item => item.name === ingredient.name
     );
 
     if (existIngredient) {
@@ -25,11 +26,13 @@ const Menu = () => {
     setSelectedIngredients(ingredients);
   };
 
-  const handleRemoveIngredient = (ingredient) => {
-    let ingredients = [ /* Seçilen malzemeler */];
+  const handleRemoveIngredient = ingredient => {
+    let ingredients = [
+      /* Seçilen malzemeler */
+    ];
 
     const existIngredient = ingredients.find(
-      (item) => item.name === ingredient.name
+      item => item.name === ingredient.name
     );
 
     if (existIngredient) {
@@ -37,7 +40,7 @@ const Menu = () => {
         existIngredient.count -= 1;
       } else {
         ingredients = ingredients.filter(
-          (item) => item.name !== existIngredient.name
+          item => item.name !== existIngredient.name
         );
       }
     }
@@ -52,7 +55,7 @@ const Menu = () => {
           Current Price: <span>$ {getCalculatedTotalPrice()}</span>
         </div>
 
-        {Object.keys(ingredients).map((name) => (
+        {Object.keys(ingredients).map(name => (
           <div className="menu-items">
             <div className="product-name">
               {name.charAt(0).toUpperCase() + name.slice(1)}
@@ -68,8 +71,7 @@ const Menu = () => {
               -
             </button>
             <div className="qty">
-              {selectedIngredients.find((item) => item.name === name)?.count ||
-                0}
+              {selectedIngredients.find(item => item.name === name)?.count || 0}
             </div>
             <button
               className="menu-button increment"
